@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>峡谷生日祝福 - 王者荣耀趣味测评</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 首页 -->
+        <div id="home-page" class="page active">
+            <div class="container">
+                <div class="birthday-header">
+                    <div class="balloon balloon-1">🎈</div>
+                    <div class="balloon balloon-2">🎉</div>
+                    <div class="balloon balloon-3">🎁</div>
+                </div>
+                <h1 class="title">生日快乐</h1>
+                <p class="subtitle">专属峡谷生日测评</p>
+                <div class="description">
+                    <p>通过游戏信息与趣味选择题，获得你的五维评分、峡谷人设与生日彩蛋祝福</p>
+                </div>
+                <button class="btn btn-primary" onclick="app.startTest()">开始测评</button>
+            </div>
+        </div>
+
+        <!-- 第一次见面英雄提问 -->
+        <div id="first-hero-page" class="page">
+            <div class="container">
+                <div class="progress">问题 1/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">我们第一次见面，我用的是什么英雄？</h2>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="first-hero-input" 
+                            class="text-input" 
+                            placeholder="请输入英雄名字"
+                            onkeypress="if(event.key==='Enter') app.submitFirstHero()"
+                        >
+                    </div>
+                    <button class="btn btn-primary" onclick="app.submitFirstHero()">提交</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 输入基础信息的页面们 -->
+        <!-- 页面 2: 峡谷大名 -->
+        <div id="nickname-page" class="page">
+            <div class="container">
+                <div class="progress">问题 2/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">请输入你的峡谷大名</h2>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="nickname-input" 
+                            class="text-input" 
+                            placeholder="输入你的游戏昵称"
+                            onkeypress="if(event.key==='Enter') app.nextPage()"
+                        >
+                    </div>
+                    <button class="btn btn-primary" onclick="app.nextPage()">下一步</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 3: 本命英雄 -->
+        <div id="main-hero-page" class="page">
+            <div class="container">
+                <div class="progress">问题 3/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">请输入你的本命英雄</h2>
+                    <p class="question-hint">例如：李白、瑶、貂蝉、马可波罗</p>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="main-hero-input" 
+                            class="text-input" 
+                            placeholder="输入你最常用的英雄"
+                            onkeypress="if(event.key==='Enter') app.nextPage()"
+                        >
+                    </div>
+                    <button class="btn btn-primary" onclick="app.nextPage()">下一步</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 4: 游戏ID -->
+        <div id="game-id-page" class="page">
+            <div class="container">
+                <div class="progress">问题 4/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">你的游戏 ID 是什么？</h2>
+                    <p class="question-hint">用于生成趣味标签，会在结果中展示</p>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="game-id-input" 
+                            class="text-input" 
+                            placeholder="输入你的游戏 ID"
+                            onkeypress="if(event.key==='Enter') app.nextPage()"
+                        >
+                    </div>
+                    <button class="btn btn-primary" onclick="app.nextPage()">下一步</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 5: 常用分路 -->
+        <div id="lane-page" class="page">
+            <div class="container">
+                <div class="progress">问题 5/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">常用分路</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="app.selectOption('lane', '打野')">打野</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '中单')">中单</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '对抗路')">对抗路</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '发育路')">发育路</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '游走')">游走</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '全能补位')">全能补位</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 6: 游戏作息 -->
+        <div id="schedule-page" class="page">
+            <div class="container">
+                <div class="progress">问题 6/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">游戏作息</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="app.selectOption('schedule', '深夜上分党')">深夜上分党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '午休摸鱼党')">午休摸鱼党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '放学下班党')">放学下班党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '周末集中党')">周末集中党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '随时在线党')">随时在线党</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 7: 游戏性格 -->
+        <div id="personality-page" class="page">
+            <div class="container">
+                <div class="progress">问题 7/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">游戏性格</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="app.selectOption('personality', '认真指挥型')">认真指挥型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '安静发育型')">安静发育型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '温柔稳局型')">温柔稳局型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '整活气氛型')">整活气氛型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '直爽吐槽型')">直爽吐槽型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '佛系随缘型')">佛系随缘型</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 8: 组队状态 -->
+        <div id="team-page" class="page">
+            <div class="container">
+                <div class="progress">问题 8/13</div>
+                <div class="question-card">
+                    <h2 class="question-text">组队状态</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="app.selectOption('team', '固定双排')">固定双排</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '三五排开黑')">三五排开黑</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '常年单排')">常年单排</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '随缘组队')">随缘组队</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '陪朋友上线')">陪朋友上线</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '看心情，都可以')">看心情，都可以</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 选择题页面 (9-14) -->
+        <div id="question-page" class="page">
+            <div class="container">
+                <div class="progress">问题 <span id="question-num">9</span>/13</div>
+                <div class="question-card">
+                    <h2 class="question-text" id="question-text"></h2>
+                    <div id="options-container" class="options-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽签页面 -->
+        <div id="draw-page" class="page">
+            <div class="container">
+                <div class="progress">运势签文</div>
+                <div class="question-card">
+                    <h2 class="question-text">点击抽签，获得你的运势签文</h2>
+                    <div class="draw-zone" onclick="app.drawFortune()">
+                        <div class="draw-card" id="draw-card">
+                            <span class="draw-text">点击抽签</span>
+                        </div>
+                    </div>
+                    <div id="fortune-result" style="display:none; margin-top:20px;">
+                        <p id="fortune-text" class="fortune-text"></p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="app.nextPage()" id="draw-confirm-btn" style="display:none;">查看评分</button>
+            </div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div id="result-page" class="page">
+            <div class="container">
+                <div class="result-header">
+                    <div class="balloon balloon-result">🎂</div>
+                    <h1 class="result-title">生日快乐，<span id="result-nickname">玩家</span>！</h1>
+                </div>
+
+                <!-- 五维评分卡 -->
+                <div class="score-card">
+                    <h2>你的五维评分</h2>
+                    <div class="score-item">
+                        <div class="score-label">操作分</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="score-operation"></div>
+                        </div>
+                        <div class="score-value" id="score-operation-text">0/100</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">意识分</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="score-awareness"></div>
+                        </div>
+                        <div class="score-value" id="score-awareness-text">0/100</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">心态分</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="score-mentality"></div>
+                        </div>
+                        <div class="score-value" id="score-mentality-text">0/100</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">摆烂指数</div>
+                        <div class="score-bar">
+                            <div class="score-fill danger" id="score-meme"></div>
+                        </div>
+                        <div class="score-value" id="score-meme-text">0/100</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">队友好感度</div>
+                        <div class="score-bar">
+                            <div class="score-fill success" id="score-rapport"></div>
+                        </div>
+                        <div class="score-value" id="score-rapport-text">0/100</div>
+                    </div>
+                </div>
+
+                <!-- 趣味标签 -->
+                <div class="tags-card">
+                    <h2>趣味标签</h2>
+                    <div id="tags-container" class="tags-container"></div>
+                </div>
+
+                <!-- 人设评语 -->
+                <div class="persona-card">
+                    <h2 class="persona-name" id="persona-name"></h2>
+                    <p class="persona-description" id="persona-description"></p>
+                </div>
+
+                <!-- 生日彩蛋 -->
+                <div class="easter-egg-card">
+                    <h2>✨ 生日彩蛋 ✨</h2>
+                    <p id="easter-egg-text" class="easter-egg-text"></p>
+                </div>
+
+                <button class="btn btn-primary" onclick="app.restart()">重新测评</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
