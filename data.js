@@ -1,26 +1,10 @@
 // 数据配置文件
 const DATA = {
-    // 王者荣耀英雄列表（示例）
-    heroes: [
-        { name: '李白', type: '刺客', influence: { operation: 10, awareness: 5, rapport: -5 } },
-        { name: '瑶', type: '辅助', influence: { operation: 5, awareness: 8, rapport: 15 } },
-        { name: '貂蝉', type: '法师', influence: { operation: 8, awareness: 10, rapport: 5 } },
-        { name: '马可波罗', type: '射手', influence: { operation: 12, awareness: 8, rapport: 0 } },
-        { name: '甄姬', type: '法师', influence: { operation: 6, awareness: 12, rapport: 8 } },
-        { name: '项羽', type: '坦克', influence: { operation: 4, awareness: 6, rapport: 12 } },
-        { name: '韩信', type: '刺客', influence: { operation: 14, awareness: 10, rapport: -8 } },
-        { name: '周瑜', type: '法师', influence: { operation: 10, awareness: 12, rapport: 5 } },
-        { name: '诸葛亮', type: '法师', influence: { operation: 8, awareness: 15, rapport: 10 } },
-        { name: '鲁班七号', type: '射手', influence: { operation: 11, awareness: 9, rapport: 2 } },
-        { name: '孙膑', type: '辅助', influence: { operation: 3, awareness: 14, rapport: 12 } },
-        { name: '牛魔', type: '坦克', influence: { operation: 5, awareness: 7, rapport: 10 } },
-        { name: '吕布', type: '战士', influence: { operation: 13, awareness: 6, rapport: -5 } },
-        { name: '关羽', type: '战士', influence: { operation: 11, awareness: 8, rapport: 8 } },
-        { name: '刘备', type: '战士', influence: { operation: 9, awareness: 10, rapport: 12 } },
-        { name: '曹操', type: '战士', influence: { operation: 10, awareness: 11, rapport: 6 } },
-        { name: '孙权', type: '战士', influence: { operation: 8, awareness: 9, rapport: 10 } },
-        { name: '张飞', type: '坦克', influence: { operation: 6, awareness: 8, rapport: 10 } },
-    ],
+    // 第一次见面的正确答案
+    firstHeroAnswer: '孙尚香',
+
+    // 王者荣耀英雄列表：来自 heroList.browser.js 的全量英雄数据库
+    heroes: (typeof window !== 'undefined' && Array.isArray(window.allHeroes)) ? window.allHeroes : [],
 
     // 分路影响
     laneInfluence: {
@@ -52,19 +36,8 @@ const DATA = {
         '看心情，都可以': { rapport: 10, persona: 'flexible' }
     },
 
-    // 游戏ID关键词映射
-    idKeywords: {
-        '奶': { tag: '奶妈人设', meme: 5 },
-        '爷': { tag: '大爷气质', meme: 8 },
-        '骚': { tag: '操作骚气', operation: 5 },
-        '狗': { tag: '反向渣男', rapport: -5 },
-        '酱': { tag: '甜蜜气息', rapport: 10 },
-        '王': { tag: '排位之王', carry: 10 },
-        '帝': { tag: '峡谷之帝', carry: 8 },
-        '鬼': { tag: '幽灵刺客', operation: 8, meme: 5 },
-        '浪': { tag: '浪里白条', meme: 10 },
-        '心': { tag: '温暖之心', rapport: 12 }
-    },
+    // 趣味关键词映射：来自 keywordList.browser.js
+    idKeywords: (typeof window !== 'undefined' && window.idKeywords) ? window.idKeywords : {},
 
     // 测评选择题
     questions: [
@@ -208,7 +181,7 @@ const DATA = {
 
     // 生日彩蛋配置
     easterEggs: {
-        heroCorrect: '你还记得我们第一次见面时的那个英雄，说明这份峡谷友谊真的很稳。希望我们能一直在峡谷中相伴。',
+        heroCorrect: '你还记得我们第一次见面时的那个英雄，很感动，不过记得是应该的！因为我也记得你玩的是马超。希望今后也能一直玩的开心！',
         heroWrong: '虽然记错了英雄，但不要紧。重要的是后来我们一起玩过的每一局，那些才是我们最珍贵的回忆。',
         idMessages: [
             id => `ID 中有这样的特点的你，在峡谷中总能给人留下深刻印象。`,

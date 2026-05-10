@@ -53,30 +53,41 @@ body {
 /* 首页样式 */
 .birthday-header {
     position: relative;
-    text-align: center;
-    height: 80px;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 18px;
+    height: 96px;
+    margin-bottom: 22px;
+    padding: 0 18px;
 }
 
 .balloon {
-    font-size: 40px;
-    position: absolute;
+    position: static;
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff7df 0%, #ffe5ec 100%);
+    box-shadow: 0 12px 28px rgba(255, 128, 128, 0.18);
     animation: float 3s ease-in-out infinite;
 }
 
 .balloon-1 {
-    left: 10%;
     animation-delay: 0s;
 }
 
 .balloon-2 {
-    left: 50%;
     animation-delay: 0.5s;
+    background: linear-gradient(145deg, #f0f7ff 0%, #fff1c7 100%);
 }
 
 .balloon-3 {
-    left: 75%;
     animation-delay: 1s;
+    background: linear-gradient(145deg, #f8f0ff 0%, #ffe7d1 100%);
 }
 
 .balloon-result {
@@ -263,38 +274,186 @@ body {
 
 /* 抽签页面 */
 .draw-zone {
-    margin: 40px 0;
+    margin: 34px 0 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 18% 22%, rgba(255, 189, 213, 0.45), transparent 24%),
+        radial-gradient(circle at 82% 18%, rgba(174, 216, 255, 0.5), transparent 25%),
+        linear-gradient(180deg, #fff4fb 0%, #f3fbff 100%);
+    border: 1px solid rgba(255, 166, 206, 0.34);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.draw-zone::before,
+.draw-zone::after {
+    content: "✧";
+    position: absolute;
+    color: #ff8fc2;
+    font-size: 28px;
+    opacity: 0.75;
+}
+
+.draw-zone::before {
+    left: 34px;
+    top: 34px;
+}
+
+.draw-zone::after {
+    right: 38px;
+    bottom: 42px;
+    color: #76b7ff;
+}
+
+.draw-deco {
+    position: absolute;
+    font-weight: 800;
+    color: #ff79ac;
+}
+
+.draw-deco-left {
+    left: 54px;
+    bottom: 58px;
+    font-size: 24px;
+}
+
+.draw-deco-right {
+    right: 58px;
+    top: 54px;
+    font-size: 26px;
+}
+
+.draw-deco-bottom {
+    bottom: 18px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.82);
+    color: #6e8edb;
+    font-size: 12px;
 }
 
 .draw-card {
-    width: 120px;
-    height: 180px;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    border-radius: 15px;
+    position: relative;
+    width: 176px;
+    height: 210px;
+    background: transparent;
+    border-radius: 18px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    flex-direction: column;
     cursor: pointer;
     font-weight: 700;
-    font-size: 18px;
-    color: #333;
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    font-size: 16px;
+    color: #7a3b00;
+    box-shadow: none;
     transition: all 0.3s ease;
-    border: 2px solid #ffc700;
     text-align: center;
-    padding: 10px;
+    padding: 0 10px 28px;
 }
 
 .draw-card:hover {
-    transform: scale(1.05) rotateZ(2deg);
+    transform: translateY(-4px) rotateZ(1deg);
+}
+
+.draw-card.disabled {
+    cursor: default;
+    opacity: 0.82;
+}
+
+.draw-card.disabled:hover {
+    transform: none;
 }
 
 .draw-card.drawn {
     animation: drawAnimation 0.6s ease-out;
+}
+
+.fortune-stick {
+    position: absolute;
+    bottom: 104px;
+    width: 16px;
+    height: 96px;
+    border-radius: 8px 8px 3px 3px;
+    background: linear-gradient(180deg, #fffafd 0%, #ffc1db 100%);
+    border: 1px solid rgba(255, 126, 176, 0.28);
+    box-shadow: 0 6px 12px rgba(255, 126, 176, 0.14);
+    transform-origin: bottom center;
+}
+
+.fortune-stick-1 {
+    left: 52px;
+    transform: rotate(-18deg);
+}
+
+.fortune-stick-2 {
+    left: 76px;
+    height: 112px;
+    transform: rotate(-6deg);
+}
+
+.fortune-stick-3 {
+    right: 70px;
+    height: 108px;
+    transform: rotate(7deg);
+}
+
+.fortune-stick-4 {
+    right: 48px;
+    transform: rotate(18deg);
+}
+
+.bucket-lip {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 84px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #fff 0%, #ffd4e7 100%);
+    box-shadow: 0 8px 18px rgba(255, 126, 176, 0.18);
+    z-index: 2;
+}
+
+.bucket-body {
+    position: absolute;
+    left: 34px;
+    right: 34px;
+    bottom: 30px;
+    height: 76px;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(160deg, #ff9fc9 0%, #86c7ff 100%);
+    box-shadow: 0 16px 30px rgba(134, 199, 255, 0.28);
+}
+
+.bucket-body::before {
+    content: "";
+    position: absolute;
+    inset: 12px 18px auto;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 18px 0 rgba(255, 255, 255, 0.58);
+}
+
+.draw-text {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 86px;
+    min-height: 34px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #e65192;
+    box-shadow: 0 8px 18px rgba(255, 126, 176, 0.2);
 }
 
 @keyframes drawAnimation {
@@ -309,10 +468,6 @@ body {
     }
 }
 
-.draw-text {
-    display: block;
-}
-
 .fortune-text {
     background: #f5f5f5;
     padding: 15px;
@@ -325,9 +480,15 @@ body {
 }
 
 /* 结果页面 */
+#result-page .container {
+    position: relative;
+    justify-content: flex-start;
+}
+
 .result-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    padding-top: 6px;
 }
 
 .result-title {
@@ -356,7 +517,9 @@ body {
 }
 
 .score-item {
+    position: relative;
     margin-bottom: 18px;
+    padding-bottom: 18px;
 }
 
 .score-label {
@@ -395,13 +558,22 @@ body {
     text-align: right;
 }
 
+.score-note {
+    display: none;
+    margin-top: 4px;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #8b6fe8;
+}
+
 /* 标签卡 */
 .tags-card {
-    background: #f9f9f9;
+    background: linear-gradient(180deg, #fff6fb 0%, #f4fbff 100%);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 25px;
-    border-left: 4px solid #ffc700;
+    border-left: 4px solid #ff8fc2;
 }
 
 .tags-card h2 {
@@ -418,12 +590,17 @@ body {
 
 .tag {
     display: inline-block;
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    color: #333;
+    background: linear-gradient(135deg, #ff8fc2 0%, #7cc8ff 100%);
+    color: #ffffff;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
+    box-shadow: 0 6px 14px rgba(124, 200, 255, 0.22);
+}
+
+.tag:nth-child(even) {
+    background: linear-gradient(135deg, #7cc8ff 0%, #f59ed2 100%);
 }
 
 /* 人设卡 */
@@ -448,27 +625,311 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* 彩蛋卡 */
-.easter-egg-card {
-    background: #fff9e6;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 25px;
-    border: 2px solid #ffc700;
-    border-left: 4px solid #ff6b6b;
+.persona-description p {
+    margin-bottom: 14px;
 }
 
-.easter-egg-card h2 {
+.persona-description p:last-child {
+    margin-bottom: 0;
+}
+
+.persona-description .birthday-wish {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.32);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.9;
+}
+
+/* 彩蛋图标 */
+.easter-egg-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 46px;
+    height: 46px;
+    border: none;
+    background: transparent;
+    font-size: 36px;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    z-index: 10;
+    line-height: 1;
+}
+
+.cake-section {
+    margin-top: 32px;
+    padding-top: 26px;
+    text-align: center;
+    border-top: 1px dashed rgba(255, 143, 194, 0.45);
+}
+
+.cake-section p {
+    color: #e65192;
     font-size: 18px;
-    color: #ff6b6b;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.cake-section .easter-egg-icon {
+    position: static;
+    width: 118px;
+    height: 118px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fff2fa 0%, #eaf7ff 100%);
+    font-size: 76px;
+    box-shadow: 0 18px 36px rgba(255, 143, 194, 0.28);
+}
+
+.cake-section .easter-egg-icon:hover {
+    transform: translateY(-3px) scale(1.04);
+}
+
+.easter-egg-icon:focus-visible {
+    outline: 3px solid rgba(255, 107, 107, 0.45);
+    border-radius: 50%;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* 彩蛋页面 */
+#easter-egg-page .container {
+    justify-content: flex-start;
+}
+
+.easter-egg-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.easter-egg-title {
+    font-size: 28px;
+    color: #667eea;
     margin-bottom: 10px;
 }
 
-.easter-egg-text {
-    font-size: 15px;
-    color: #333;
+.easter-egg-subtitle {
+    font-size: 16px;
+    color: #666;
+    font-style: italic;
+}
+
+/* 信封样式 */
+.letter-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.letter-envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 2px solid #dee2e6;
+}
+
+.letter-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+    border-radius: 10px 10px 0 0;
+}
+
+.letter-body {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.letter-content {
+    font-family: 'Georgia', serif;
+    font-size: 16px;
     line-height: 1.8;
-    font-weight: 500;
+    color: #333;
+    text-align: left;
+    min-height: 100px;
+}
+
+.letter-content p {
+    margin-bottom: 15px;
+}
+
+#easter-egg-page .letter-container {
+    margin: 22px 0 34px;
+}
+
+#easter-egg-page .letter-envelope {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    height: auto;
+    min-height: 620px;
+    margin: 0 auto;
+    padding-top: 56px;
+    background: linear-gradient(145deg, #ffe6f1 0%, #eaf7ff 100%);
+    border: 2px solid rgba(255, 143, 194, 0.42);
+    border-radius: 18px;
+    box-shadow: 0 18px 42px rgba(255, 143, 194, 0.22);
+}
+
+#easter-egg-page .letter-flap {
+    height: 74px;
+    background: linear-gradient(135deg, #ff8fc2 0%, #86c7ff 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+#easter-egg-page .letter-body {
+    position: relative;
+    inset: auto;
+    margin: 0 18px 18px;
+    max-height: 68vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 12px;
+    padding: 26px 22px;
+    box-shadow: inset 0 0 0 1px rgba(255, 143, 194, 0.16);
+}
+
+#easter-egg-page .letter-content {
+    min-height: auto;
+    text-align: left;
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #4b3b45;
+}
+
+#easter-egg-page .letter-content p {
+    margin-bottom: 18px;
+}
+
+#easter-egg-page .letter-greeting {
+    text-align: center;
+    color: #e65192;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.letter-divider {
+    border: none;
+    border-top: 1px dashed rgba(230, 81, 146, 0.42);
+    margin: 28px 0 20px;
+}
+
+.letter-photo {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    margin-top: 12px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+}
+
+.letter-content p:first-child {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 彩蛋页面样式 */
+.easter-egg-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.easter-egg-title {
+    font-size: 28px;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.balloon-easter {
+    font-size: 60px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.letter-envelope {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #f8c291, #e55039);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 2;
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.letter-content {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    font-family: 'Georgia', serif;
+}
+
+.letter-content p {
+    margin-bottom: 15px;
 }
 
 /* 响应式 */

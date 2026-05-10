@@ -17,9 +17,9 @@
                     <div class="balloon balloon-3">🎁</div>
                 </div>
                 <h1 class="title">生日快乐</h1>
-                <p class="subtitle">专属峡谷生日测评</p>
+                <p class="subtitle">来自远方的峡谷生日小礼物</p>
                 <div class="description">
-                    <p>通过游戏信息与趣味选择题，获得你的五维评分、峡谷人设与生日彩蛋祝福</p>
+                    <p>这大概会是一份很特别的礼物，因为对我来说也很特别。以前不会有一模一样的，往后也很难再复制同样的惊喜，所以请认真收下这份来自峡谷的生日小心意。</p>
                 </div>
                 <button class="btn btn-primary" onclick="app.startTest()">开始测评</button>
             </div>
@@ -87,102 +87,81 @@
             </div>
         </div>
 
-        <!-- 页面 4: 游戏ID -->
-        <div id="game-id-page" class="page">
+        <!-- 页面 4: 常用分路 -->
+        <div id="lane-page" class="page">
             <div class="container">
                 <div class="progress">问题 4/13</div>
                 <div class="question-card">
-                    <h2 class="question-text">你的游戏 ID 是什么？</h2>
-                    <p class="question-hint">用于生成趣味标签，会在结果中展示</p>
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            id="game-id-input" 
-                            class="text-input" 
-                            placeholder="输入你的游戏 ID"
-                            onkeypress="if(event.key==='Enter') app.nextPage()"
-                        >
+                    <h2 class="question-text">常用分路</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="app.selectOption('lane', '打野', this)">打野</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '中单', this)">中单</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '对抗路', this)">对抗路</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '发育路', this)">发育路</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '游走', this)">游走</button>
+                        <button class="option-btn" onclick="app.selectOption('lane', '全能补位', this)">全能补位</button>
                     </div>
-                    <button class="btn btn-primary" onclick="app.nextPage()">下一步</button>
                 </div>
             </div>
         </div>
 
-        <!-- 页面 5: 常用分路 -->
-        <div id="lane-page" class="page">
+        <!-- 页面 5: 游戏作息 -->
+        <div id="schedule-page" class="page">
             <div class="container">
                 <div class="progress">问题 5/13</div>
                 <div class="question-card">
-                    <h2 class="question-text">常用分路</h2>
+                    <h2 class="question-text">游戏作息</h2>
                     <div class="options-grid">
-                        <button class="option-btn" onclick="app.selectOption('lane', '打野')">打野</button>
-                        <button class="option-btn" onclick="app.selectOption('lane', '中单')">中单</button>
-                        <button class="option-btn" onclick="app.selectOption('lane', '对抗路')">对抗路</button>
-                        <button class="option-btn" onclick="app.selectOption('lane', '发育路')">发育路</button>
-                        <button class="option-btn" onclick="app.selectOption('lane', '游走')">游走</button>
-                        <button class="option-btn" onclick="app.selectOption('lane', '全能补位')">全能补位</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '深夜上分党', this)">深夜上分党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '午休摸鱼党', this)">午休摸鱼党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '放学下班党', this)">放学下班党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '周末集中党', this)">周末集中党</button>
+                        <button class="option-btn" onclick="app.selectOption('schedule', '随时在线党', this)">随时在线党</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 页面 6: 游戏作息 -->
-        <div id="schedule-page" class="page">
+        <!-- 页面 6: 游戏性格 -->
+        <div id="personality-page" class="page">
             <div class="container">
                 <div class="progress">问题 6/13</div>
                 <div class="question-card">
-                    <h2 class="question-text">游戏作息</h2>
+                    <h2 class="question-text">游戏性格</h2>
                     <div class="options-grid">
-                        <button class="option-btn" onclick="app.selectOption('schedule', '深夜上分党')">深夜上分党</button>
-                        <button class="option-btn" onclick="app.selectOption('schedule', '午休摸鱼党')">午休摸鱼党</button>
-                        <button class="option-btn" onclick="app.selectOption('schedule', '放学下班党')">放学下班党</button>
-                        <button class="option-btn" onclick="app.selectOption('schedule', '周末集中党')">周末集中党</button>
-                        <button class="option-btn" onclick="app.selectOption('schedule', '随时在线党')">随时在线党</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '认真指挥型', this)">认真指挥型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '安静发育型', this)">安静发育型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '温柔稳局型', this)">温柔稳局型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '整活气氛型', this)">整活气氛型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '直爽吐槽型', this)">直爽吐槽型</button>
+                        <button class="option-btn" onclick="app.selectOption('personality', '佛系随缘型', this)">佛系随缘型</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 页面 7: 游戏性格 -->
-        <div id="personality-page" class="page">
+        <!-- 页面 7: 组队状态 -->
+        <div id="team-page" class="page">
             <div class="container">
                 <div class="progress">问题 7/13</div>
                 <div class="question-card">
-                    <h2 class="question-text">游戏性格</h2>
-                    <div class="options-grid">
-                        <button class="option-btn" onclick="app.selectOption('personality', '认真指挥型')">认真指挥型</button>
-                        <button class="option-btn" onclick="app.selectOption('personality', '安静发育型')">安静发育型</button>
-                        <button class="option-btn" onclick="app.selectOption('personality', '温柔稳局型')">温柔稳局型</button>
-                        <button class="option-btn" onclick="app.selectOption('personality', '整活气氛型')">整活气氛型</button>
-                        <button class="option-btn" onclick="app.selectOption('personality', '直爽吐槽型')">直爽吐槽型</button>
-                        <button class="option-btn" onclick="app.selectOption('personality', '佛系随缘型')">佛系随缘型</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 页面 8: 组队状态 -->
-        <div id="team-page" class="page">
-            <div class="container">
-                <div class="progress">问题 8/13</div>
-                <div class="question-card">
                     <h2 class="question-text">组队状态</h2>
                     <div class="options-grid">
-                        <button class="option-btn" onclick="app.selectOption('team', '固定双排')">固定双排</button>
-                        <button class="option-btn" onclick="app.selectOption('team', '三五排开黑')">三五排开黑</button>
-                        <button class="option-btn" onclick="app.selectOption('team', '常年单排')">常年单排</button>
-                        <button class="option-btn" onclick="app.selectOption('team', '随缘组队')">随缘组队</button>
-                        <button class="option-btn" onclick="app.selectOption('team', '陪朋友上线')">陪朋友上线</button>
-                        <button class="option-btn" onclick="app.selectOption('team', '看心情，都可以')">看心情，都可以</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '固定双排', this)">固定双排</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '三五排开黑', this)">三五排开黑</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '常年单排', this)">常年单排</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '随缘组队', this)">随缘组队</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '陪朋友上线', this)">陪朋友上线</button>
+                        <button class="option-btn" onclick="app.selectOption('team', '看心情，都可以', this)">看心情，都可以</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 选择题页面 (9-14) -->
+        <!-- 选择题页面 (8-13) -->
         <div id="question-page" class="page">
             <div class="container">
-                <div class="progress">问题 <span id="question-num">9</span>/13</div>
+                <div class="progress">问题 <span id="question-num">8</span>/13</div>
                 <div class="question-card">
                     <h2 class="question-text" id="question-text"></h2>
                     <div id="options-container" class="options-list"></div>
@@ -195,9 +174,18 @@
             <div class="container">
                 <div class="progress">运势签文</div>
                 <div class="question-card">
-                    <h2 class="question-text">点击抽签，获得你的运势签文</h2>
+                    <h2 class="question-text">摇一摇，抽一支你的生日小签</h2>
                     <div class="draw-zone" onclick="app.drawFortune()">
+                        <span class="draw-deco draw-deco-left">✦</span>
+                        <span class="draw-deco draw-deco-right">♡</span>
+                        <span class="draw-deco draw-deco-bottom">生日限定</span>
                         <div class="draw-card" id="draw-card">
+                            <span class="fortune-stick fortune-stick-1"></span>
+                            <span class="fortune-stick fortune-stick-2"></span>
+                            <span class="fortune-stick fortune-stick-3"></span>
+                            <span class="fortune-stick fortune-stick-4"></span>
+                            <span class="bucket-lip"></span>
+                            <span class="bucket-body"></span>
                             <span class="draw-text">点击抽签</span>
                         </div>
                     </div>
@@ -213,13 +201,13 @@
         <div id="result-page" class="page">
             <div class="container">
                 <div class="result-header">
-                    <div class="balloon balloon-result">🎂</div>
+                    <button class="easter-egg-icon" onclick="app.showEasterEgg()" title="点击发现彩蛋" aria-label="点击发现彩蛋">🎂</button>
                     <h1 class="result-title">生日快乐，<span id="result-nickname">玩家</span>！</h1>
                 </div>
 
                 <!-- 五维评分卡 -->
                 <div class="score-card">
-                    <h2>你的五维评分</h2>
+                    <h2>给你打打分^^</h2>
                     <div class="score-item">
                         <div class="score-label">操作分</div>
                         <div class="score-bar">
@@ -259,27 +247,63 @@
 
                 <!-- 趣味标签 -->
                 <div class="tags-card">
-                    <h2>趣味标签</h2>
+                    <h2>再给你贴点小标签^^</h2>
                     <div id="tags-container" class="tags-container"></div>
                 </div>
 
                 <!-- 人设评语 -->
                 <div class="persona-card">
                     <h2 class="persona-name" id="persona-name"></h2>
-                    <p class="persona-description" id="persona-description"></p>
-                </div>
-
-                <!-- 生日彩蛋 -->
-                <div class="easter-egg-card">
-                    <h2>✨ 生日彩蛋 ✨</h2>
-                    <p id="easter-egg-text" class="easter-egg-text"></p>
+                    <div class="persona-description" id="persona-description"></div>
                 </div>
 
                 <button class="btn btn-primary" onclick="app.restart()">重新测评</button>
+
+                <div class="cake-section">
+                    <p>请食用你的生日蛋糕</p>
+                    <button class="easter-egg-icon" onclick="app.showEasterEgg()" title="点击发现彩蛋" aria-label="点击发现彩蛋">🎂</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 彩蛋页面 -->
+        <div id="easter-egg-page" class="page">
+            <div class="container">
+                <div class="easter-egg-header">
+                    <h1 class="easter-egg-title">恭喜你发现彩蛋入口</h1>
+                </div>
+                
+                <div class="letter-container">
+                    <div class="letter-envelope">
+                        <div class="letter-flap"></div>
+                        <div class="letter-body">
+                            <div class="letter-content" id="letter-content">
+                                <p class="letter-greeting">生日快乐！</p>
+                                <p>五月是非常好的日子，夏天真正开始了，暖意刚好又没到酷暑难耐的时候，阳光明媚，草木繁盛，一切都很鲜活。</p>
+                                <p>本来想单独写一张生日祝福，但是在越来越数字化的时代感觉似乎不是很好保留，于是我想到这了这个办法，我简直是天才^^</p>
+                                <p>说说礼物吧，好玩不^^这是我专门给你写的网站，你未来的人生中很难收到同样类型的生日礼物了！我也是想了很久才决定做这个礼物的，每一个人都是独特的，我也没有送过别人类似的礼物。</p>
+                                <p>这个高校联赛的纪念戒指是我特意给你找来的限定周边。我知道你一直在认真打游戏，大学里有很多游戏社团，等上大学之后你可以加入进去，找同好一起玩。虽然送这个已经给我半开盒了，但也无所谓了。这个就当是送给你的专属电竞荣誉啦，好好学习，也好好享受游戏吧！</p>
+                                <p>拼豆别看就这几个，我拼了好几天！每一颗豆子都要手填、拼完了还要手动烫，很花时间的。我觉着你老提东方月初是对我的一种暗示所以想了一下还是把东方月初拼出来了，其实我更喜欢原皮的。另外还专门给你做了一个祈缘挂件，可以挂书包也能当钥匙扣；要是不方便带，单用大司命原皮的那个御守也可以。</p>
+                                <p>这个二维码其实也可以当挂件用，别人扫出来是never give u up也是能被整到了。这个网站如果第一题回答不对也解锁不了后面的内容，所以没关系。</p>
+                                <p>最后真的很开心能在网络上认识你，人生真的处处充满奇遇。</p>
+                                <p>作为悲惨的大学生，我后面现实生活肯定会越来越忙碌；你剩下的高中生活肯定也会比以往都紧张，就算以后上了大学，也未必就能清闲。大学是一种和高中无时无刻紧绷状态完全不同的、温水煮青蛙似的忙碌，甚至如果不主动社交，说不定会陷入更加强烈的孤独里。不过仁者见仁、智者见智，每个人的际遇都不同，就算同在一所学校每个人的生活体验也天差地别，没必要想太多。人生的不确定性恰恰也是它的魅力所在，就算这份不确定里藏着些许不那么美好的可能也没关系。</p>
+                                <p>现在没必要思虑太远，徒增焦虑而已。希望我们都能好好活在当下，日日开心。</p>
+                                <p>至于明天，无论我们是否期盼是否担忧，太阳都会照常升起。</p>
+                                <hr class="letter-divider">
+                                <p>下附顺手拍的一张五月榴花照眼明</p>
+                                <img src="榴花.jpg" alt="五月榴花照眼明" class="letter-photo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="app.backToResult()">返回结果</button>
             </div>
         </div>
     </div>
 
+    <script src="heroList.browser.js"></script>
+    <script src="keywordList.browser.js"></script>
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>

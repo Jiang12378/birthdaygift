@@ -24,14 +24,14 @@ const app = {
         'first-hero-page',
         'nickname-page',
         'main-hero-page',
-        'game-id-page',
         'lane-page',
         'schedule-page',
         'personality-page',
         'team-page',
         'question-page', // 动态页面，显示 6 个选择题
         'draw-page',
-        'result-page'
+        'result-page',
+        'easter-egg-page'
     ],
 
     // 初始化应用
@@ -54,16 +54,18 @@ const app = {
         
         this.userData.firstHero = input;
         
-        // 验证第一次见面的英雄（简单检查是否在英雄列表中）
-        const heroExists = DATA.heroes.some(h => h.name === input);
-        this.userData.firstHeroCorrect = heroExists;
+        // 验证第一次见面的英雄
+        this.userData.firstHeroCorrect = (input === DATA.firstHeroAnswer);
         
         // 显示反馈
         const message = this.userData.firstHeroCorrect 
             ? '答对啦！看来这段峡谷记忆你还记得。专属生日测评正式开启！'
-            : '好吧，记错也没关系，毕竟重要的是后来我们一起玩过的每一局。生日测评继续开启！';
+            : '好吧，这次没有答对。这个生日测评是专属彩蛋，答对我们第一次见面的英雄才能继续开启。';
         
         alert(message);
+        if (!this.userData.firstHeroCorrect) {
+            return;
+        }
         this.goToPage(2);
     },
 
@@ -75,7 +77,7 @@ const app = {
             return;
         }
         this.userData.nickname = input;
-        this.nextPage();
+        this.goToPage(this.currentPageIndex + 1);
     },
 
     // 提交本命英雄
@@ -86,24 +88,27 @@ const app = {
             return;
         }
         this.userData.mainHero = input;
-        this.nextPage();
+        this.goToPage(this.currentPageIndex + 1);
     },
 
     // 提交游戏ID
     submitGameId() {
         const input = document.getElementById('game-id-input').value.trim();
         this.userData.gameId = input;
-        this.nextPage();
+        this.goToPage(this.currentPageIndex + 1);
     },
 
     // 选择选项
-    selectOption(type, value) {
+    selectOption(type, value, buttonElement) {
         this.userData[type] = value;
+        console.log(`选择 ${type}: ${value}`);
         
         // 更新UI显示选中状态
-        const buttons = event.target.parentElement.querySelectorAll('.option-btn');
-        buttons.forEach(btn => btn.classList.remove('selected'));
-        event.target.classList.add('selected');
+        if (buttonElement && buttonElement.parentElement) {
+            const buttons = buttonElement.parentElement.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            buttonElement.classList.add('selected');
+        }
         
         // 自动跳转到下一页
         setTimeout(() => this.nextPage(), 300);
@@ -118,14 +123,14 @@ const app = {
     // 显示选择题
     showQuestion(index) {
         if (index >= DATA.questions.length) {
-            this.goToPage(10); // 进入抽签页面
+            this.goToPage(9); // 进入抽签页面
             return;
         }
         
-        this.goToPage(9); // 问题页面
+        this.goToPage(8); // 问题页面
         
         const question = DATA.questions[index];
-        document.getElementById('question-num').textContent = (index + 1);
+        document.getElementById('question-num').textContent = (index + 8);
         document.getElementById('question-text').textContent = question.text;
         
         const container = document.getElementById('options-container');
@@ -152,17 +157,23 @@ const app = {
         if (questionIndex + 1 < DATA.questions.length) {
             this.showQuestion(questionIndex + 1);
         } else {
-            this.goToPage(10); // 进入抽签页面
+            this.goToPage(9); // 进入抽签页面
         }
     },
 
     // 抽签
     drawFortune() {
         const card = document.getElementById('draw-card');
+        if (this.userData.fortuneDraw !== null || card.classList.contains('drawn')) {
+            return;
+        }
+
         card.classList.add('drawn');
         
         const fortuneIndex = Math.floor(Math.random() * DATA.fortunes.length);
         this.userData.fortuneDraw = fortuneIndex;
+        card.classList.add('disabled');
+        card.querySelector('.draw-text').textContent = '已抽签';
         
         setTimeout(() => {
             const fortuneText = DATA.fortunes[fortuneIndex];
@@ -184,9 +195,6 @@ const app = {
         } else if (currentPage === 'main-hero-page') {
             this.submitMainHero();
             return;
-        } else if (currentPage === 'game-id-page') {
-            this.submitGameId();
-            return;
         }
         
         if (currentPage === 'team-page') {
@@ -207,12 +215,12 @@ const app = {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         
         // 显示目标页面
-        if (pageIndex === 9) {
-            // 问题页面处理
-            if (!this.userData.quizAnswers[0]) {
-                this.currentQuestionIndex = 0;
-                this.showQuestion(0);
-            }
+        if (pageIndex === 8) {
+            // 问题页面处理 - 只显示页面，不调用 showQuestion（避免无限递归）
+            document.getElementById('question-page').classList.add('active');
+            this.currentPageIndex = 8;
+        } else if (pageIndex === 10) {
+            this.showResults();
         } else if (pageIndex < this.pages.length) {
             const pageName = this.pages[pageIndex];
             const pageEl = document.getElementById(pageName);
@@ -220,11 +228,6 @@ const app = {
                 pageEl.classList.add('active');
                 this.currentPageIndex = pageIndex;
             }
-        } else if (pageIndex === 10) {
-            document.getElementById('draw-page').classList.add('active');
-            this.currentPageIndex = 10;
-        } else if (pageIndex === 11) {
-            this.showResults();
         }
     },
 
@@ -232,15 +235,16 @@ const app = {
     showResults() {
         // 计算评分
         const scores = this.calculateScores();
+        console.log('评分:', scores);
+        console.log('用户数据:', this.userData);
         
         // 获取人设
         const persona = this.matchPersona();
+        console.log('人设:', persona);
         
         // 生成标签
         const tags = this.generateTags();
-        
-        // 生成彩蛋文案
-        const easterEgg = this.generateEasterEgg();
+        console.log('标签:', tags);
         
         // 更新UI
         document.getElementById('result-nickname').textContent = this.userData.nickname || '玩家';
@@ -253,15 +257,22 @@ const app = {
         
         // 显示人设
         document.getElementById('persona-name').textContent = persona.name;
-        document.getElementById('persona-description').textContent = persona.description;
-        
-        // 显示彩蛋
-        document.getElementById('easter-egg-text').textContent = easterEgg;
+        this.displayPersonaDescription(persona.description);
         
         // 跳转到结果页面
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('result-page').classList.add('active');
-        this.currentPageIndex = 11;
+        this.currentPageIndex = 10;
+    },
+
+    // 显示彩蛋页面
+    showEasterEgg() {
+        this.goToPage(11); // 彩蛋页面
+    },
+
+    // 返回结果页面
+    backToResult() {
+        this.goToPage(10); // 结果页面
     },
 
     // 计算评分
@@ -287,7 +298,7 @@ const app = {
         
         // 加入本命英雄的影响
         if (this.userData.mainHero) {
-            const hero = DATA.heroes.find(h => h.name === this.userData.mainHero);
+            const hero = this.findHeroProfile(this.userData.mainHero);
             if (hero && hero.influence) {
                 Object.keys(hero.influence).forEach(key => {
                     if (scores.hasOwnProperty(key)) {
@@ -302,6 +313,7 @@ const app = {
             const laneData = DATA.laneInfluence[this.userData.lane];
             scores.operation += laneData.operation || 0;
             scores.awareness += laneData.awareness || 0;
+            scores.mentality += laneData.team || 0; // 团队倾向影响心态
         }
         
         // 加入游戏性格的影响
@@ -325,23 +337,124 @@ const app = {
         return scores;
     },
 
+    // 查找英雄资料，兼容用户输入中的空格和全角空格
+    findHeroProfile(heroName) {
+        const normalize = value => String(value || '').replace(/\s+/g, '').trim();
+        const target = normalize(heroName);
+        if (!target || !Array.isArray(DATA.heroes)) {
+            return null;
+        }
+
+        return DATA.heroes.find(hero => normalize(hero.name) === target) || null;
+    },
+
     // 显示评分
     displayScores(scores) {
         const scoreConfig = [
-            { id: 'operation', text: '操作分' },
-            { id: 'awareness', text: '意识分' },
-            { id: 'mentality', text: '心态分' },
-            { id: 'meme', text: '摆烂指数' },
-            { id: 'rapport', text: '队友好感度' }
+            {
+                id: 'operation',
+                text: '操作分',
+                high: '手感很在线，别装了我看得出来。',
+                low: '今天先不拼手速，靠脑子也能赢。'
+            },
+            {
+                id: 'awareness',
+                text: '意识分',
+                high: '你是真的会看局势，雷达开着呢。',
+                low: '地图可以多看两眼，但可爱先满分。'
+            },
+            {
+                id: 'mentality',
+                text: '心态分',
+                high: '稳得像峡谷定海神针。',
+                low: '这颗心需要被蛋糕和朋友保护一下。'
+            },
+            {
+                id: 'meme',
+                text: '摆烂指数',
+                high: '快乐浓度超标，但我允许。',
+                low: '认真得有点明显，偶尔也可以放松。'
+            },
+            {
+                id: 'rapport',
+                text: '队友好感度',
+                high: '谁和你开黑都会偷偷开心。',
+                low: '你只是比较有边界感，不是不好相处。'
+            }
         ];
         
         scoreConfig.forEach(config => {
             const score = scores[config.id];
             const fillEl = document.getElementById(`score-${config.id}`);
             const textEl = document.getElementById(`score-${config.id}-text`);
+            const noteEl = this.ensureScoreNoteElement(config.id, textEl);
             
-            fillEl.style.width = score + '%';
-            textEl.textContent = score + '/100';
+            if (fillEl) {
+                fillEl.style.width = score + '%';
+            }
+            if (textEl) {
+                textEl.textContent = score + '/100';
+            }
+            if (noteEl) {
+                if (score > 80) {
+                    noteEl.textContent = config.high;
+                    noteEl.style.display = 'block';
+                } else if (score < 30) {
+                    noteEl.textContent = config.low;
+                    noteEl.style.display = 'block';
+                } else {
+                    noteEl.textContent = '';
+                    noteEl.style.display = 'none';
+                }
+            }
+        });
+    },
+
+    // 确保每个评分项都有短评位置
+    ensureScoreNoteElement(scoreId, textEl) {
+        if (!textEl || !textEl.parentElement) {
+            return null;
+        }
+
+        const noteId = `score-${scoreId}-note`;
+        let noteEl = document.getElementById(noteId);
+        if (!noteEl) {
+            noteEl = document.createElement('div');
+            noteEl.id = noteId;
+            noteEl.className = 'score-note';
+            textEl.parentElement.appendChild(noteEl);
+        }
+        return noteEl;
+    },
+
+    // 显示人设评语，将生日祝福段落单独换行突出
+    displayPersonaDescription(description) {
+        const container = document.getElementById('persona-description');
+        if (!container) {
+            return;
+        }
+
+        container.innerHTML = '';
+        const conversationalDescription = description.startsWith('我知道')
+            ? description
+            : `我知道${description}`;
+        const birthdayIndex = conversationalDescription.indexOf('生日快乐');
+        const parts = birthdayIndex >= 0
+            ? [conversationalDescription.slice(0, birthdayIndex), conversationalDescription.slice(birthdayIndex)]
+            : [conversationalDescription];
+
+        parts.forEach((part, index) => {
+            const text = part.trim();
+            if (!text) {
+                return;
+            }
+
+            const paragraph = document.createElement('p');
+            paragraph.textContent = text;
+            if (index === 1) {
+                paragraph.className = 'birthday-wish';
+            }
+            container.appendChild(paragraph);
         });
     },
 
@@ -451,10 +564,11 @@ const app = {
             tags.push(teamTagMap[this.userData.team]);
         }
         
-        // ID关键词标签
-        if (this.userData.gameId) {
+        // 昵称关键词标签
+        const keywordSource = `${this.userData.nickname || ''}${this.userData.mainHero || ''}`;
+        if (keywordSource) {
             Object.keys(DATA.idKeywords).forEach(keyword => {
-                if (this.userData.gameId.includes(keyword)) {
+                if (keywordSource.includes(keyword)) {
                     tags.push(DATA.idKeywords[keyword].tag);
                 }
             });
@@ -532,9 +646,35 @@ const app = {
         // 清空所有输入框
         document.querySelectorAll('input').forEach(input => input.value = '');
         document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        this.resetDrawUI();
         
         // 回到首页
         this.goToPage(0);
+    },
+
+    // 重置抽签区 UI
+    resetDrawUI() {
+        const card = document.getElementById('draw-card');
+        const fortuneResult = document.getElementById('fortune-result');
+        const fortuneText = document.getElementById('fortune-text');
+        const confirmBtn = document.getElementById('draw-confirm-btn');
+
+        if (card) {
+            card.classList.remove('drawn', 'disabled');
+            const text = card.querySelector('.draw-text');
+            if (text) {
+                text.textContent = '点击抽签';
+            }
+        }
+        if (fortuneResult) {
+            fortuneResult.style.display = 'none';
+        }
+        if (fortuneText) {
+            fortuneText.textContent = '';
+        }
+        if (confirmBtn) {
+            confirmBtn.style.display = 'none';
+        }
     }
 };
 
