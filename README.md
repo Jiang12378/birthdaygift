@@ -2,20 +2,7 @@
 
 ## 🎉 项目概述
 
-这是一个为朋友生日准备的王者荣耀趣味测评网页。用户可以填写游戏信息、回答选择题、获得五维评分、人设评语和生日祝福。
-
-### ✨ 主要功能
-
-- ✅ 隐藏彩蛋：第一次见面英雄问题
-- ✅ 基础信息采集：昵称、本命英雄、分路、性格、组队状态等
-- ✅ 6 道趣味选择题
-- ✅ 运势签文抽签
-- ✅ 五维评分（操作分、意识分、心态分、摆烂指数、队友好感度）
-- ✅ 个性化人设匹配（6 种人设评语）
-- ✅ 生日彩蛋祝福
-- ✅ 轻盈简洁的生日主题 UI
-
----
+这是一个为朋友生日准备的王者荣耀趣味测评网页。
 
 ## 📁 项目结构
 
@@ -28,90 +15,7 @@ birthday-test-site/
 └── README.md           # 本文档
 ```
 
----
 
-## 🚀 快速开始
-
-### 方案 A：部署到 GitHub Pages（推荐）
-
-#### 步骤 1：创建 GitHub 仓库
-
-1. 访问 [GitHub](https://github.com) 并登录
-2. 点击右上角 **"+"** 按钮，选择 **"New repository"**
-3. 填写仓库信息：
-   - Repository name: `birthday-test` （或你喜欢的名字）
-   - Description: `王者荣耀生日趣味测评网页`
-   - 选择 **"Public"**
-   - 其他选项保持默认
-4. 点击 **"Create repository"**
-
-#### 步骤 2：上传文件
-
-**方式1：Web 界面上传（最简单）**
-
-1. 打开新创建的仓库
-2. 点击 **"Add file"** → **"Upload files"**
-3. 将以下文件拖到上传区域：
-   - `index.html`
-   - `styles.css`
-   - `data.js`
-   - `script.js`
-4. 在下方写入 commit message：`Initial commit: Add birthday test website`
-5. 点击 **"Commit changes"**
-
-**方式2：Git 命令行**
-
-```bash
-# 1. 克隆仓库到本地
-git clone https://github.com/你的用户名/birthday-test.git
-cd birthday-test
-
-# 2. 复制所有文件到该目录
-# (将 index.html、styles.css、data.js、script.js 复制到这里)
-
-# 3. 提交更改
-git add .
-git commit -m "Initial commit: Add birthday test website"
-git push origin main
-```
-
-#### 步骤 3：启用 GitHub Pages
-
-1. 打开仓库，进入 **Settings**
-2. 在左侧菜单找到 **"Pages"**
-3. 在 **"Source"** 下拉菜单选择 **"main"** 分支
-4. 点击 **"Save"**
-5. 等待几秒钟，刷新页面
-6. 你会看到一个绿色提示：`Your site is live at https://你的用户名.github.io/birthday-test/`
-
-#### 访问网站
-
-将链接分享给朋友：`https://你的用户名.github.io/birthday-test/`
-
-朋友可以用手机浏览器直接打开，**自动支持 HTTPS**！
-
----
-
-### 方案 B：本地测试（开发阶段）
-
-#### 使用 VS Code Live Server
-
-1. 在 VS Code 中打开项目文件夹
-2. 在 `index.html` 上右键
-3. 选择 **"Open with Live Server"**
-4. 浏览器自动打开 `http://localhost:5500/index.html`
-5. 手机可以连到同一网络，输入电脑 IP 地址访问（例如：`http://192.168.1.100:5500/index.html`）
-
-#### 使用 Python 本地服务器
-
-```bash
-# Python 3
-python -m http.server 8000
-
-# 然后访问 http://localhost:8000
-```
-
----
 
 ## 🛠️ 如何自定义
 
@@ -229,16 +133,6 @@ A: 在 `data.js` 的 `DATA.questions` 数组中添加新的问题对象，然后
 ## 📝 许可证
 
 本项目仅供个人使用。
-
----
-
-## 💡 后续扩展建议
-
-- [ ] 添加后端保存用户结果
-- [ ] 生成可分享的海报
-- [ ] 多人对比排行
-- [ ] 更多个性化人设
-- [ ] 集成 AI 生成个性化评语
 
 ---
 
