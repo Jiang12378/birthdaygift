@@ -59,8 +59,8 @@ const app = {
         
         // 显示反馈
         const message = this.userData.firstHeroCorrect 
-            ? '答对啦！看来这段峡谷记忆你还记得。专属生日测评正式开启！'
-            : '好吧，这次没有答对。这个生日测评是专属彩蛋，答对我们第一次见面的英雄才能继续开启。';
+            ? '答对啦，不过这是应该的！你也可以尝试一下答错会是什么走向。专属生日测评正式开启！'
+            : 'WARNING🤯🤯🤯你没有被生日祝福邀请！你将错失你人生中最近的一道惊喜。这个生日测评是专属彩蛋，答对我们第一次见面的英雄才能继续开启哦。';
         
         alert(message);
         if (!this.userData.firstHeroCorrect) {
